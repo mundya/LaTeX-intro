@@ -1,0 +1,161 @@
+% Define the title and author, these will be inserted when we use the
+% `\maketitle` command.
+\title{An Introduction to \LaTeX{}}
+\author{Andrew Mundy}
+\date{}  % I don't really want to add the date
+
+% Set Source Code Pro as the typewriter style font
+\usepackage{sourcecodepro}
+
+% The Minted package is for syntax highlighting of code samples
+\usepackage{minted}
+\setminted[tex]{
+  fontsize=\small,
+  frame=lines,
+  linenos=True,
+  style=friendly,
+  xleftmargin=2em,
+  xrightmargin=2em,
+}
+
+% This package allows us to include graphics
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}  % Allows use to use the `frame` option
+
+% This package is for pretty tables
+\usepackage{booktabs}
+
+% Begin the document (this ends the preamble)
+\begin{document}
+  % Add the title, in presentation mode this will add the title slide, in
+  % article mode this will just add a title.
+  \maketitle
+
+  % Sections are created with the `\section{Section Title}` command, I'm going
+  % to be mixing slides in with normal written content to avoid creating two
+  % completely separate documents.
+  \section{Introduction}
+  \subsection{Some disclaimers}
+  \subsubsection{Tools}
+
+  Choosing the tools to perform a task can be quite a subjective issue and sadly leads to most significant flame-wars\footnote{I'm writing this in \texttt{vim}.}.
+  As writing is such a significant part of our work choosing the right tool for writing with is particularly important.
+  Its worth noting that while I use LaTeX for most of my academic writing I occasionally use other tools (e.g., Google Docs) when they're useful.
+
+  \subsubsection{Other tutorials}
+
+  This tutorial is based Andrew Roberts' excellent set of LaTeX tutorials\footnote{\texttt{http://andy-roberts.co.uk/writing/latex/}}.
+  I've removed content that I feel is misleading (\texttt{eqnarray} and some table formatting) and tried to provide references to current best practises for achieving certain results.
+
+  \subsection{Why use LaTeX?}
+
+  \section{Getting Started}
+  % - Introduce the important parts of a LaTeX document: the preamble and the
+  %   actual content
+  % - Introduce some simple commands
+  %   - Bullet points
+  %   - Enumeration
+
+  LaTeX documents are composed of a series of \texttt{.tex} files which are compiled into a finished document by calling some appropriate command.
+  Which command will depend on what you intend to achieve but my preference is for using \texttt{pdflatex} -- this will take a \texttt{tex} file and produce a PDF with no extra mucking around required.
+  Other tools can produce PostScript or DVI files if required.
+  This process is significantly different from Microsoft Word and friends, where what we type into the editor is exactly what we get in the end; instead producing LaTeX documents is more like compiling code.
+
+  The code below is pretty much the smallest LaTeX document that we could produce.
+
+  \inputminted{tex}{examples/example-1.tex}
+
+  This is included in the examples directory for this document and can be made into a PDF by executing the following in the shell.
+
+  \begin{minted}{bash}
+    pdflatex example-1
+  \end{minted}
+
+  Figure~\ref{fig:intro/example1} shows what we get when we build the document (this is clipped to avoid scaling an entire US Letter sized document).
+
+  \begin{figure}[t]
+    \centering  % The text in this environment is to be centred
+    \includegraphics[trim=5cm 20cm 5cm 5.25cm, clip, frame]{examples/example-1}
+    \caption{Our very first LaTeX document compiled}
+    \label{fig:intro/example1}
+  \end{figure}
+
+  Already we've encountered some important ideas.
+  Everything between the start of the file and \mintinline{tex}{\begin{document}} is called the \textit{preamble}.
+  The preamble should contain all of the code for importing packages, creating new commands and setting settings.
+  Everything between \mintinline{tex}{\begin{document}} and \mintinline{tex}{\end{document}} is said to be in the \texttt{document} \textit{enviroment} and will be included in the typeset output.
+  We'll see some more environments later.
+
+  Going through line by line:
+  In the first line we specified the type of document we wish to create, in this case an article.
+  We do this by calling \mintinline{tex}{\documentclass{article}}.
+  There are some other document classes that we might want to use, and some publishers may require that specific classes are used.
+
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{l l}
+      \toprule
+      Class & Use \\
+      \midrule
+      \texttt{acmsmall} & Some ACM publications. \\
+      \texttt{article} & Documents like this. \\
+      \texttt{beamer} & Presentations. \\
+      \texttt{IEEETran} & IEEE journal and conference presentations. \\
+      \texttt{report} & Longer technical documents (think end of year report\ldots or thesis!). \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+
+  Lines 2 and 3 specified the title and author of the document.
+  If we'd wanted we could have added a subtitle or the date.
+  These lines aren't typeset immediately but when we call \mintinline{tex}{\maketitle} they're used to generate a title which is appropriate for our document class, for example a title page or slide.
+  Line 5 starts the document and line 6 prints the title.
+  Line 8 is the body text that is typeset (the \mintinline{tex}{\LaTeX{}} command just prints \LaTeX{}).
+  Finally, line 9 ends the document.
+
+  \section{Document Structure}
+  % - Introduce the structuring of LaTeX documents
+  %   + Hints for making large document manageable
+
+  \section{Mathematics}
+  % - Introduce equation environments
+  % - Progress through typesetting increasingly complex expressions
+  %   - Multiline
+  %   - Matrices
+  %   - Pointers to extra symbol libraries, extra fonts
+
+  \section{Tables}
+  % - Simple tables with booktabs
+  % - More complex tables with siunitx
+
+  \section{Images and Graphics}
+  % - Including graphics
+  % - Floats and captions
+
+  \section{Bibliographies}
+  % - Citing stuff
+  % - Creating a bibliography
+  % - Recommendations
+
+  \section{Tables of Contents}
+  % - Creating tables of contents
+
+  \section{Presentations}
+  % - Introduction to Beamer
+  % - Introduction to the Unofficial University of Manchester theme
+
+  \section{Tips for large documents and source control}
+  \subsection{Large documents}
+  % - Splitting sections up
+
+  \subsection{Source control}
+  % - Sections per line for source control
+  %   - Additional Git commands
+
+  \subsection{Working with \texttt{IEEETran}}
+  % - Dredge up fixes for IEEETran
+
+  \section{Creating diagrams directly in LaTeX with TikZ}
+  % - Brief introduction to TikZ
+  % - Point at the documentation - it IS excellent
+\end{document}
