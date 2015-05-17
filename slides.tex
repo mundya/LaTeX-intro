@@ -516,7 +516,32 @@ pdflatex document  # Yes, twice!
   \end{description}
 \end{frame}
 
+\begin{frame}{Working with large documents}
+  \begin{itemize}
+    \item Use \mintinline{tex}{\input{filename}} to split things up
+    \item One sentence per line!
+    \item Use source control
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[plain]{A hint for Git}
+  \begin{itemize}
+    \item Use \mintinline{bash}{git diff --color-words}
+  \end{itemize}
+  \includegraphics[width=\textwidth]{git_diff}
+\end{frame}
+
 \begin{darkframes}
+  \begin{frame}{Good packages}
+    \begin{itemize}
+      \item \texttt{clrscode3e}  -- algorithm typesetting
+      \item \texttt{geography} -- paper settings
+      \item \texttt{hyperref} -- PDF clickable links
+      \item \texttt{minted} -- source code formatting
+      \item \texttt{pgf/tikz} -- diagrams
+    \end{itemize}
+  \end{frame}
+
   \begin{frame}{Good resources}
     Tutorials and general help
     \begin{itemize}
